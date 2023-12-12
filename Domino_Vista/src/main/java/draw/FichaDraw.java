@@ -15,16 +15,17 @@ import java.awt.Graphics;
  */
 public class FichaDraw {
 
-    protected int largo;
-    protected int alto;
     protected int dimensionCuadrado;
     protected PuntoDraw puntoDraw;
 
     public FichaDraw(int largo, int alto) {
-        this.largo = largo;
-        this.alto = alto;
         int area = largo * alto;
         this.dimensionCuadrado = area / 9900;
+        this.puntoDraw = new PuntoDraw();
+    }
+
+    public FichaDraw(int dimensionCuadrado) {
+        this.dimensionCuadrado = dimensionCuadrado;
         this.puntoDraw = new PuntoDraw();
     }
 
@@ -48,6 +49,10 @@ public class FichaDraw {
         puntoDraw.validarPunto(ficha.getB(), x, y, dimensionCuadrado, g);
         g.drawRoundRect(x, y, dimensionCuadrado, dimensionCuadrado, 6, 6);
 
+    }
+
+    public int getDimensionCuadrado() {
+        return dimensionCuadrado;
     }
 
 }
