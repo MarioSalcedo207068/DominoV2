@@ -9,6 +9,8 @@ import domino.Ficha;
 import draw.FichaDraw;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,7 +19,8 @@ import java.awt.Graphics;
 public class PanelFichas extends javax.swing.JPanel {
 
     private FichaDraw fichaDraw;
-
+    private List<Ficha> fichas=new ArrayList<>();
+    private Ficha fichaSeleccionada;
     /**
      * Creates new form NewJPanel
      */
@@ -31,7 +34,7 @@ public class PanelFichas extends javax.swing.JPanel {
         this.fichaDraw = new FichaDraw(this.getHeight(),
                 this.getWidth());
         Ficha ficha = new Ficha(6, 6);
-
+        fichas.add(ficha);
         //ficha horizontal
         int x = 200;
         int y = 200;
@@ -40,8 +43,34 @@ public class PanelFichas extends javax.swing.JPanel {
         //ficha vertical
         x = 400;
         y = 400;
+        
+        
         fichaDraw.dibujarFichaVertical(x, y, ficha, g);
-
+        
+                if (fichaSeleccionada != null) {
+            int xFichaSeleccionada = 60 + fichas.indexOf(fichaSeleccionada) * 100;
+            int yFichaSeleccionada = 10;
+            g.setColor(Color.RED);
+            g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
+                    fichaDraw.getDimensionCuadrado(), fichaDraw.getDimensionCuadrado(), 6, 6);
+            yFichaSeleccionada = 60;
+            g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
+                    fichaDraw.getDimensionCuadrado(), fichaDraw.getDimensionCuadrado(), 6, 6);
+        }
+    }
+    
+    
+    private void seleccionarFicha(int x, int y) {
+        for (Ficha ficha : fichas) {
+            int xFicha = 60 + fichas.indexOf(ficha) * 100;
+            int yFicha = 10;
+            if (x >= xFicha && x <= xFicha + fichaDraw.getDimensionCuadrado()
+                    && y >= yFicha && y <= yFicha + 2 * fichaDraw.getDimensionCuadrado()) {
+                fichaSeleccionada = ficha;
+                repaint();
+                System.out.println("Ficha seleccionada: " + ficha);
+            }
+        }
     }
 
     /**
@@ -54,6 +83,11 @@ public class PanelFichas extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(153, 153, 153));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,6 +100,11 @@ public class PanelFichas extends javax.swing.JPanel {
             .addGap(0, 550, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+    seleccionarFicha(evt.getX(), evt.getY());
+// TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
