@@ -6,6 +6,8 @@
 package draw;
 
 import domino.Ficha;
+import dto.FichaDTO;
+import dto.Orientacion;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -18,18 +20,28 @@ public class FichaDraw {
     protected int dimensionCuadrado;
     protected PuntoDraw puntoDraw;
 
-    public FichaDraw(int largo, int alto) {
-        int area = largo * alto;
-        this.dimensionCuadrado = area / 9900;
-        this.puntoDraw = new PuntoDraw();
-    }
-
+//    public FichaDraw(int largo, int alto) {
+//        int area = largo * alto;
+//        this.dimensionCuadrado = area / 9900;
+//        this.puntoDraw = new PuntoDraw();
+//    }
     public FichaDraw(int dimensionCuadrado) {
         this.dimensionCuadrado = dimensionCuadrado;
         this.puntoDraw = new PuntoDraw();
     }
 
-    public void dibujarFichaHorizontal(int x, int y, Ficha ficha, Graphics g) {;
+    public void dibujarFicha(FichaDTO fichaDTO, Graphics g) {
+        if (fichaDTO.getOrientacion().equals(Orientacion.HORIZONTAL)) {
+            dibujarFichaHorizontal(fichaDTO, g);
+        } else {
+            dibujarFichaVertical(fichaDTO, g);
+        }
+    }
+
+    public void dibujarFichaHorizontal(FichaDTO fichaDTO, Graphics g) {
+        int x = fichaDTO.getX();
+        int y = fichaDTO.getY();
+        Ficha ficha = fichaDTO.getFicha();
         g.setColor(Color.yellow);
         g.drawRoundRect(x, y, dimensionCuadrado, dimensionCuadrado, 6, 6);
         puntoDraw.setHorizontal(true);
@@ -40,7 +52,10 @@ public class FichaDraw {
 
     }
 
-    public void dibujarFichaVertical(int x, int y, Ficha ficha, Graphics g) {
+    public void dibujarFichaVertical(FichaDTO fichaDTO, Graphics g) {
+        int x = fichaDTO.getX();
+        int y = fichaDTO.getY();
+        Ficha ficha = fichaDTO.getFicha();
         g.setColor(Color.yellow);
         g.drawRoundRect(x, y, dimensionCuadrado, dimensionCuadrado, 6, 6);
         puntoDraw.setHorizontal(false);

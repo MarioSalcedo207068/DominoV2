@@ -6,6 +6,8 @@
 package frames;
 
 import domino.Ficha;
+import dto.FichaDTO;
+import dto.Orientacion;
 import draw.FichaDraw;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,17 +27,18 @@ public class PanelFichasJugador extends javax.swing.JPanel {
     /**
      * Creates new form FichasJugador
      */
-    public PanelFichasJugador() {
+    public PanelFichasJugador(List<Ficha> fichas) {
         initComponents();
         this.fichaDraw = new FichaDraw(50);
-        this.fichas = new ArrayList<>();
-        fichas.add(new Ficha(1, 3));
-        fichas.add(new Ficha(1, 1));
-        fichas.add(new Ficha(2, 3));
-        fichas.add(new Ficha(3, 3));
-        fichas.add(new Ficha(4, 5));
-        fichas.add(new Ficha(6, 3));
-        fichas.add(new Ficha(1, 2));
+        this.fichas = fichas;
+//        this.fichas = new ArrayList<>();
+//        fichas.add(new Ficha(1, 3));
+//        fichas.add(new Ficha(1, 1));
+//        fichas.add(new Ficha(2, 3));
+//        fichas.add(new Ficha(3, 3));
+//        fichas.add(new Ficha(4, 5));
+//        fichas.add(new Ficha(6, 3));
+//        fichas.add(new Ficha(1, 2));
         this.fichaSeleccionada = null;
     }
 
@@ -47,7 +50,7 @@ public class PanelFichasJugador extends javax.swing.JPanel {
                     && y >= yFicha && y <= yFicha + 2 * fichaDraw.getDimensionCuadrado()) {
                 fichaSeleccionada = ficha;
                 repaint();
-                System.out.println("Ficha seleccionada: " + ficha);
+                System.out.println("Ficha seleccionada jugador: " + ficha);
             }
         }
     }
@@ -58,7 +61,8 @@ public class PanelFichasJugador extends javax.swing.JPanel {
         int x = 60;
         int y = 10;
         for (int i = 0; i < fichas.size(); i++) {
-            fichaDraw.dibujarFichaVertical(x, y, fichas.get(i), g);
+            FichaDTO fichaDTO = new FichaDTO(fichas.get(i), x, y, Orientacion.VERTICAL);
+            fichaDraw.dibujarFichaVertical(fichaDTO, g);
             x += 100;
         }
 

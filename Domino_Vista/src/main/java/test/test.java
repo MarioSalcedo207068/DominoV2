@@ -30,10 +30,7 @@ public class test {
                 }
             }
         }
-
-        for (int i = 0; i < fichas.size(); i++) {
-            System.out.println(fichas.get(i).toString());
-        }
+        System.out.println(fichas.size());
     }
 
 }

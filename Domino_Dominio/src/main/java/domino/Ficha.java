@@ -45,6 +45,10 @@ public class Ficha {
         this.b = b;
     }
 
+    public int getScore() {
+        return a + b;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

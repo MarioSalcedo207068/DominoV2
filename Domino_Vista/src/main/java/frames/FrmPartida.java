@@ -4,8 +4,10 @@
  */
 package frames;
 
+import domino.Ficha;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +17,18 @@ import javax.swing.JOptionPane;
 public class FrmPartida extends javax.swing.JFrame {
 
     PanelFichas panelFichasExterno = new PanelFichas();
-    PanelFichasJugador panelFichasJugador = new PanelFichasJugador();
+    PanelFichasJugador panelFichasJugador;
 
     /**
      * Creates new form frmPartida
      */
+    public FrmPartida(List<Ficha> fichasJugador) {
+        initComponents();
+        panelFichasJugador = new PanelFichasJugador(fichasJugador);
+        this.cargarTablero();
+        this.cargarTableroJugador();
+    }
+
     public FrmPartida() {
         initComponents();
         this.cargarTablero();
