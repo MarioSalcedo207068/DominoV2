@@ -1,4 +1,5 @@
 
+import presenter.PresenterMenu;
 import presenter.PresenterPartida;
 
 /*
@@ -17,7 +18,8 @@ public class test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        PresenterPartida partida = new PresenterPartida();
+        //PresenterPartida partida = new PresenterPartida();
+        PresenterMenu presenterMenu=new PresenterMenu();
     }
 
 }

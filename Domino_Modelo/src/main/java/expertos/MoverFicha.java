@@ -28,31 +28,43 @@ public class MoverFicha implements IExpertos<Ficha, Ficha> {
             if (fichaJugador.getA() == fichaTablero.getA() && fichaTablero.isCaraA() == false) {
                 playerToken.pullToken(fichaJugador);
                 fichaJugador.setCaraA(true);
-                boardToken.removeFichaBoardToken(fichaTablero);
+                fichaJugador.setAd_a(fichaTablero.getId());
+                //boardToken.removeFichaBoardToken(fichaTablero);
                 fichaTablero.setCaraA(true);
+                fichaTablero.setAd_a(fichaJugador.getId());
                 boardToken.addFichaBoardToken(fichaJugador);
-                boardToken.addFichaBoardToken(fichaTablero);
+                boardToken.actualizarFicha(fichaTablero);
+                //boardToken.addFichaBoardToken(fichaTablero);
             } else if (fichaJugador.getA() == fichaTablero.getB() && fichaTablero.isCaraB() == false) {
                 playerToken.pullToken(fichaJugador);
                 fichaJugador.setCaraA(true);
-                boardToken.removeFichaBoardToken(fichaTablero);
+                fichaJugador.setAd_a(fichaTablero.getId());
+                //boardToken.removeFichaBoardToken(fichaTablero);
                 fichaTablero.setCaraB(true);
+                fichaTablero.setAd_a(fichaJugador.getId());
                 boardToken.addFichaBoardToken(fichaJugador);
-                boardToken.addFichaBoardToken(fichaTablero);
+                //boardToken.addFichaBoardToken(fichaTablero);
+                boardToken.actualizarFicha(fichaTablero);
             } else if (fichaJugador.getB() == fichaTablero.getA() && fichaTablero.isCaraA() == false) {
                 playerToken.pullToken(fichaJugador);
                 fichaJugador.setCaraB(true);
-                boardToken.removeFichaBoardToken(fichaTablero);
+                fichaJugador.setAd_a(fichaTablero.getId());
+                //boardToken.removeFichaBoardToken(fichaTablero);
                 fichaTablero.setCaraA(true);
+                fichaTablero.setAd_a(fichaJugador.getId());
                 boardToken.addFichaBoardToken(fichaJugador);
-                boardToken.addFichaBoardToken(fichaTablero);
+                //boardToken.addFichaBoardToken(fichaTablero);
+                boardToken.actualizarFicha(fichaTablero);
             } else if (fichaJugador.getB() == fichaTablero.getB() && fichaTablero.isCaraB() == false) {
                 playerToken.pullToken(fichaJugador);
                 fichaJugador.setCaraB(true);
-                boardToken.removeFichaBoardToken(fichaTablero);
+                fichaJugador.setAd_a(fichaTablero.getId());
+                //boardToken.removeFichaBoardToken(fichaTablero);
                 fichaTablero.setCaraB(true);
+                fichaTablero.setAd_a(fichaJugador.getId());
                 boardToken.addFichaBoardToken(fichaJugador);
-                boardToken.addFichaBoardToken(fichaTablero);
+                //boardToken.addFichaBoardToken(fichaTablero);
+                boardToken.actualizarFicha(fichaTablero);
             }
         } else if (fichaTablero == null) {
             playerToken.pullToken(fichaJugador);

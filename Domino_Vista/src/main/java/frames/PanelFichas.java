@@ -57,11 +57,32 @@ public class PanelFichas extends javax.swing.JPanel {
 
     public void cargarFichas() {
         if (!fichas.isEmpty()) {
-            Ficha ficha = fichas.get(0);
+            for (int i = 0; i < fichas.size(); i++) {
+                if (i==0) {
+                    int x = 425;
+                    int y = 250;
+                    fichasDTO.add(new FichaDTO(fichas.get(i), x, y, Orientacion.VERTICAL));
+                }else{
+                    int x = 475;
+                    int y = 275;
+                    fichasDTO.add(new FichaDTO(fichas.get(i), x, y, Orientacion.HORIZONTAL));
+                }
+                    /*int x = 525;
+                    int y = 325;
+                    fichasDTO.add(new FichaDTO(fichas.get(i), x, y, Orientacion.HORIZONTAL));*/
+                
+            }
+            
+            /*for (Ficha  fichas1: fichas) {
+                int x = 425;
+                int y = 250;
+                fichasDTO.add(new FichaDTO(fichas1, x, y, Orientacion.VERTICAL));
+            }*/
+           //Ficha ficha = fichas.get(0);
 //        //ficha horizontal
-            int x = 425;
-            int y = 250;
-            fichasDTO.add(new FichaDTO(ficha, x, y, Orientacion.VERTICAL));
+            //int x = 425;
+            //int y = 250;
+            //fichasDTO.add(new FichaDTO(ficha, x, y, Orientacion.VERTICAL));
         }
     }
 

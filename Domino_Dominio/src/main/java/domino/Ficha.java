@@ -16,6 +16,8 @@ public class Ficha {
     private int b;
     private boolean caraA = false;
     private boolean caraB = false;
+    private Integer Ad_a;
+    private Integer Ad_b;
 
     public Ficha() {
     }
@@ -74,6 +76,30 @@ public class Ficha {
         this.caraB = caraB;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getAd_a() {
+        return Ad_a;
+    }
+
+    public void setAd_a(Integer Ad_a) {
+        this.Ad_a = Ad_a;
+    }
+
+    public Integer getAd_b() {
+        return Ad_b;
+    }
+
+    public void setAd_b(Integer Ad_b) {
+        this.Ad_b = Ad_b;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;

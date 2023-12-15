@@ -18,29 +18,23 @@ import modelo.ModeloPartida;
  */
 public class PresenterPartida {
 
-    ModeloPartida modeloPartida;
+    ModeloPartida modeloPartida=new ModeloPartida();
     FrmPartida frmPartida;
 
     public PresenterPartida() {
-        modeloPartida = new ModeloPartida();
-        agregarJugadores();
-        frmPartida = new FrmPartida(modeloPartida.getControl().getGame().
-                getPlayerTokens().get(0).getFichasJugador(), modeloPartida.getControl().getGame().
-                getPlayerTokens().get(0).getJugador(), this, modeloPartida.listaFichasTablero());
-        frmPartida.setVisible(true);
+
     }
 
     //Metodos de pruebas
-    public void agregarJugadores() {
-        Jugador j1 = new Jugador(1, "Daniel");
-        Jugador j2 = new Jugador(2, "Mario");
-
-        List<Jugador> jugadores = new ArrayList<>();
-        jugadores.add(j1);
-        jugadores.add(j2);
-        modeloPartida.addPlayer(jugadores.get(0));
-        modeloPartida.addPlayer(jugadores.get(1));
-
+    public void agregarJugadores(Jugador jugador) {
+        //Jugador j1 = new Jugador(1, "Daniel");
+        //Jugador j2 = new Jugador(2, "Mario");
+        //List<Jugador> jugadores = new ArrayList<>();
+        //jugadores.add(j1);
+        //jugadores.add(j2);
+        //modeloPartida.addPlayer(jugadores.get(0));
+        
+        modeloPartida.addPlayer(jugador);
         modeloPartida.repartirFichas();
         modeloPartida.getControl().getGame().imprimirJugadores();
     }
@@ -48,5 +42,14 @@ public class PresenterPartida {
     public void moverFicha(Ficha fichaJugador, Ficha fichatablero) {
         modeloPartida.moverFicha(fichaJugador, fichatablero);
         frmPartida.repaint();
+        modeloPartida.getControl().getGame().imprimirJugadores();
+    }
+    
+    public void iniciarJuego(){
+        modeloPartida = new ModeloPartida();
+        frmPartida = new FrmPartida(modeloPartida.getControl().getGame().
+                getPlayerTokens().get(0).getFichasJugador(), modeloPartida.getControl().getGame().
+                getPlayerTokens().get(0).getJugador(), this, modeloPartida.listaFichasTablero());
+        frmPartida.setVisible(true);
     }
 }

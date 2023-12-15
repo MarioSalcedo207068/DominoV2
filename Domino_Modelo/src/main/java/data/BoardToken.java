@@ -36,5 +36,19 @@ public class BoardToken {
     public List<Ficha> getFichasBoard() {
         return fichasBoard;
     }
+    
+    public Integer verificarFicha(Ficha ficha){
+        for (int i = 0; i < fichasBoard.size(); i++) {
+            if (ficha.getId().equals(fichasBoard.get(i).getId())){
+                return i;
+            }
+        }
+        return null;
+    }
+    
+    public void actualizarFicha(Ficha ficha){
+        Integer pos=verificarFicha(ficha);
+        fichasBoard.set(pos, ficha);
+    }
 
 }
