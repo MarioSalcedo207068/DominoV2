@@ -9,7 +9,8 @@ import control.Control;
 import data.PlayerToken;
 import domino.Ficha;
 import domino.Jugador;
-import interfaces.IModelo;
+
+import interfaces.IModeloPartida;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author HP
  */
-public class ModeloPartida implements IModelo {
+public class ModeloPartida implements IModeloPartida {
 
     Control control;
 

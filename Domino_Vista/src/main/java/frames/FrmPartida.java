@@ -4,6 +4,7 @@
  */
 package frames;
 
+import Interface.IPartida;
 import domino.Ficha;
 import domino.Jugador;
 import java.awt.BorderLayout;
@@ -11,6 +12,7 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import presenter.PresenterPartida;
+
 
 /**
  *
@@ -20,12 +22,12 @@ public class FrmPartida extends javax.swing.JFrame {
 
     PanelFichas panelFichasExterno;
     PanelFichasJugador panelFichasJugador;
-    PresenterPartida presenterPartida;
+    IPartida presenterPartida;
 
     /**
      * Creates new form frmPartida
      */
-    public FrmPartida(List<Ficha> fichasJugador, Jugador jugador, PresenterPartida presenterPartida,
+    public FrmPartida(List<Ficha> fichasJugador, Jugador jugador, IPartida presenterPartida,
             List<Ficha> fichasTablero) {
         initComponents();
         panelFichasExterno = new PanelFichas(this, fichasTablero);
@@ -334,7 +336,7 @@ public class FrmPartida extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Seguro que desea abandonar la partida?");
         if (respuesta == 0) {
 
-            //.setVisibleInicio();
+//                .setVisibleInicio();
             this.dispose();
         } else {
 

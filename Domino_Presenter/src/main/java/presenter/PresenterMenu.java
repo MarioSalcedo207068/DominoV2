@@ -11,7 +11,7 @@ import frames.FrmInicio;
 /**
  * @author Equipo 02
  */
-public class PresenterMenu {
+public class PresenterMenu implements IMenu {
 
     FrmInicio frm1=new FrmInicio(this);
     //FrmConfig frm2=new FrmConfig();
@@ -46,10 +46,31 @@ public class PresenterMenu {
         return jugador;
     }
 
+    @Override
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
         presenterPartida.agregarJugadores(jugador);
         presenterPartida.iniciarJuego();
+    }
+
+    @Override
+    public void returnToMenu() {
+        
+    }
+
+    @Override
+    public void addPlayer(String playerName, String playerAvatar) {
+        
+    }
+
+    @Override
+    public void createNewGame(int numPlayers, int numTokensPerPlayers) {
+        
+    }
+
+    @Override
+    public void verifyGameData(int numOfTokens, int numOfPlayers) {
+        
     }
     
     

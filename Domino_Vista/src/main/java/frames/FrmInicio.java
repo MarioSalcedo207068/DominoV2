@@ -4,6 +4,7 @@
  */
 package frames;
 
+import Interface.IMenu;
 import domino.Jugador;
 import presenter.PresenterMenu;
 
@@ -15,12 +16,12 @@ public class FrmInicio extends javax.swing.JFrame {
 
     
     public Jugador jugador=new Jugador();
-    public PresenterMenu presenterMenu;
+    public IMenu presenterMenu;
     FrmConfig frm = new FrmConfig(this);
     /**
      * Creates new form FrmInicio
      */
-    public FrmInicio(PresenterMenu presenterMenu) {
+    public FrmInicio(IMenu presenterMenu) {
         initComponents();
         this.presenterMenu=presenterMenu;
         

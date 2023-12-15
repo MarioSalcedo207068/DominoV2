@@ -16,7 +16,7 @@ import domino.Jugador;
  *
  * @author HP
  */
-public interface IModelo {
+public interface IModeloPartida {
 
 //    public Jugador obtainPlayer(int id);
     public void repartirFichas();
@@ -25,13 +25,5 @@ public interface IModelo {
 
     public void moverFicha(Ficha fichaJugador, Ficha fichaTablero);
 
-//    public int obtainPondNumberOfTokens();
-//
-//    public Estados obtainGameState();
-//
-//    public List<Ficha> obtainBoardTokenList();
-//
-//    public List<PlayerToken> obtainPlayerTokenList(int id);
-//
-//    public int obtainPlayerNumberOfTokens(int id);
+
 }
