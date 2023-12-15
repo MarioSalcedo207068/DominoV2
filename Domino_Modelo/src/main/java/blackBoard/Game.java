@@ -7,6 +7,7 @@ package blackBoard;
 
 import data.Board;
 import data.PlayerToken;
+import domino.Ficha;
 import domino.Jugador;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,16 @@ public class Game implements IObservable {
     private List<PlayerToken> playerTokens;
     private Board board;
     private int numFichas;
+    private static Game game;
 
-    public Game(int numFichas) {
+    public static synchronized Game obtenerInstancia() {
+        if (game == null) {
+            game = new Game(7);
+        }
+        return game;
+    }
+
+    private Game(int numFichas) {
         this.numFichas = numFichas;
         this.board = new Board();
         this.observadores = new ArrayList<>();
@@ -70,10 +79,19 @@ public class Game implements IObservable {
         return playerTokens;
     }
 
-    public void setJugadores(List<Jugador> jugadores) {
-        for (Jugador jugador : jugadores) {
-            playerTokens.add(new PlayerToken(jugador));
+    public void addJugador(Jugador jugador) {
+        playerTokens.add(new PlayerToken(jugador));
+    }
+
+    public PlayerToken buscarJugadorFicha(Ficha ficha) {
+        for (PlayerToken playerToken : playerTokens) {
+            for (Ficha fichas : playerToken.getFichasJugador()) {
+                if (fichas.equals(ficha)) {
+                    return playerToken;
+                }
+            }
         }
+        return null;
     }
 
     @Override

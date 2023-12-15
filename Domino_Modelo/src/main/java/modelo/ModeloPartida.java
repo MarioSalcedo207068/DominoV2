@@ -20,21 +20,24 @@ import java.util.List;
 public class ModeloPartida implements IModelo {
 
     Control control;
-    List<Jugador> jugadores = new ArrayList<>();
 
     public ModeloPartida() {
-        this.control = new Control(this);
+        this.control = new Control();
     }
 
     @Override
     public void repartirFichas() {
-        control.enviarEvento(Estados.ASIGNAR_FICHAS_JUGADORES);
+        control.enviarEvento(Estados.ASIGNAR_FICHAS_JUGADORES, null, null);
     }
 
     @Override
-    public void addPlayers(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
-        control.enviarEvento(Estados.AGREGAR_JUGADORES);
+    public void addPlayer(Jugador jugador) {
+        control.enviarEvento(Estados.AGREGAR_JUGADORES, jugador, null);
+    }
+
+    @Override
+    public void moverFicha(Ficha fichaJugador, Ficha fichaTablero) {
+        control.enviarEvento(Estados.MOVER_FICHA, fichaJugador, fichaTablero);
     }
 
     public Control getControl() {
@@ -45,12 +48,8 @@ public class ModeloPartida implements IModelo {
         this.control = control;
     }
 
-    public List<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
+    public List<Ficha> listaFichasTablero() {
+        return control.getGame().getBoard().getBoardToken().getFichasBoard();
     }
 
 }

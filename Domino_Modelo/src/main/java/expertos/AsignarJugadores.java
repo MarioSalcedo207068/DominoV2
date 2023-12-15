@@ -15,18 +15,17 @@ import modelo.ModeloPartida;
  *
  * @author HP
  */
-public class AsignarJugadores implements IExpertos {
+public class AsignarJugadores implements IExpertos<Game, Jugador> {
 
     public AsignarJugadores() {
     }
 
-    public void agregarJugadores(Game game, ModeloPartida modeloPartida) {
-        game.setJugadores(modeloPartida.getJugadores());
+    public void agregarJugador(Game game, Jugador jugador) {
+        game.addJugador(jugador);
     }
 
-    @Override
-    public void resolver(Game game, ModeloPartida modeloPartida) {
-        agregarJugadores(game, modeloPartida);
+    public void resolver(Game game, Jugador jugador) {
+        agregarJugador(game, jugador);
     }
 
 }

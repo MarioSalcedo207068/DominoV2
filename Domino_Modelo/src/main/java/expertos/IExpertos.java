@@ -12,7 +12,7 @@ import modelo.ModeloPartida;
  *
  * @author HP
  */
-public interface IExpertos {
+public interface IExpertos<T, U> {
 
-    public void resolver(Game game, ModeloPartida modeloPartida);
+    public void resolver(T t, U u);
 }

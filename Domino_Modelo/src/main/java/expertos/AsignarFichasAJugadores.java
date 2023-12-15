@@ -11,7 +11,7 @@ import modelo.ModeloPartida;
  *
  * @author Equipo 02
  */
-public class AsignarFichasAJugadores implements IExpertos {
+public class AsignarFichasAJugadores implements IExpertos<Game, Object> {
 
     public AsignarFichasAJugadores() {
     }
@@ -30,7 +30,7 @@ public class AsignarFichasAJugadores implements IExpertos {
     }
 
     @Override
-    public void resolver(Game game, ModeloPartida modeloPartida) {
+    public void resolver(Game game, Object object) {
         this.repartirFichasJugador(game);
         game.actualizarTodos();
     }

@@ -21,6 +21,7 @@ public class Board {
 
     public Board() {
         this.pond = new Pond();
+        this.boardToken = new BoardToken();
 
     }
 

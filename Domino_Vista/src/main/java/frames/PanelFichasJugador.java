@@ -22,24 +22,18 @@ public class PanelFichasJugador extends javax.swing.JPanel {
 
     private FichaDraw fichaDraw;
     private List<Ficha> fichas;
-    private Ficha fichaSeleccionada;
+    public Ficha fichaSeleccionadaJugador;
+    private FrmPartida frmPartida;
 
     /**
      * Creates new form FichasJugador
      */
-    public PanelFichasJugador(List<Ficha> fichas) {
+    public PanelFichasJugador(List<Ficha> fichas, FrmPartida frmPartida) {
         initComponents();
+        this.frmPartida = frmPartida;
         this.fichaDraw = new FichaDraw(50);
         this.fichas = fichas;
-//        this.fichas = new ArrayList<>();
-//        fichas.add(new Ficha(1, 3));
-//        fichas.add(new Ficha(1, 1));
-//        fichas.add(new Ficha(2, 3));
-//        fichas.add(new Ficha(3, 3));
-//        fichas.add(new Ficha(4, 5));
-//        fichas.add(new Ficha(6, 3));
-//        fichas.add(new Ficha(1, 2));
-        this.fichaSeleccionada = null;
+        this.fichaSeleccionadaJugador = null;
     }
 
     private void seleccionarFicha(int x, int y) {
@@ -48,7 +42,7 @@ public class PanelFichasJugador extends javax.swing.JPanel {
             int yFicha = 10;
             if (x >= xFicha && x <= xFicha + fichaDraw.getDimensionCuadrado()
                     && y >= yFicha && y <= yFicha + 2 * fichaDraw.getDimensionCuadrado()) {
-                fichaSeleccionada = ficha;
+                fichaSeleccionadaJugador = ficha;
                 repaint();
                 System.out.println("Ficha seleccionada jugador: " + ficha);
             }
@@ -66,8 +60,8 @@ public class PanelFichasJugador extends javax.swing.JPanel {
             x += 100;
         }
 
-        if (fichaSeleccionada != null) {
-            int xFichaSeleccionada = 60 + fichas.indexOf(fichaSeleccionada) * 100;
+        if (fichaSeleccionadaJugador != null) {
+            int xFichaSeleccionada = 60 + fichas.indexOf(fichaSeleccionadaJugador) * 100;
             int yFichaSeleccionada = 10;
             g.setColor(Color.RED);
             g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
@@ -110,6 +104,7 @@ public class PanelFichasJugador extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         seleccionarFicha(evt.getX(), evt.getY());
+        frmPartida.validarFichas();
     }//GEN-LAST:event_formMouseClicked
 
 

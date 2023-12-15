@@ -19,10 +19,11 @@ import domino.Jugador;
 public interface IModelo {
 
 //    public Jugador obtainPlayer(int id);
-
     public void repartirFichas();
 
-    public void addPlayers(List<Jugador> jugadores);
+    public void addPlayer(Jugador jugadores);
+
+    public void moverFicha(Ficha fichaJugador, Ficha fichaTablero);
 
 //    public int obtainPondNumberOfTokens();
 //
@@ -33,5 +34,4 @@ public interface IModelo {
 //    public List<PlayerToken> obtainPlayerTokenList(int id);
 //
 //    public int obtainPlayerNumberOfTokens(int id);
-
 }

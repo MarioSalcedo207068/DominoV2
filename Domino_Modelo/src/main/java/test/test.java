@@ -26,24 +26,29 @@ public class test {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        Jugador j1 = new Jugador(1, "Daniel");
-        Jugador j2 = new Jugador(2, "Mario");
-
-        List<Jugador> jugadores = new ArrayList<>();
-        jugadores.add(j1);
-        jugadores.add(j2);
-
-        ModeloPartida modeloPartida = new ModeloPartida();
-        modeloPartida.addPlayers(jugadores);
-        modeloPartida.repartirFichas();
-
-        modeloPartida.getControl().getGame().imprimirJugadores();
-
-        FrmPartida frmPartida = new FrmPartida(modeloPartida.getControl().getGame().
-                getPlayerTokens().get(0).getFichasJugador());
-        
-        frmPartida.setVisible(true);
-
+//        Jugador j1 = new Jugador(1, "Daniel");
+//        Jugador j2 = new Jugador(2, "Mario");
+//
+//        List<Jugador> jugadores = new ArrayList<>();
+//        jugadores.add(j1);
+//        jugadores.add(j2);
+//
+//        ModeloPartida modeloPartida = new ModeloPartida();
+//        modeloPartida.addPlayer(jugadores.get(0));
+//        modeloPartida.addPlayer(jugadores.get(1));
+//
+//        modeloPartida.repartirFichas();
+//        modeloPartida.getControl().getGame().imprimirJugadores();
+//        
+//        
+////
+//        FrmPartida frmPartida = new FrmPartida(modeloPartida.getControl().getGame().
+//                getPlayerTokens().get(0).getFichasJugador(), modeloPartida.getControl().getGame().
+//                getPlayerTokens().get(0).getJugador());
+//
+//        frmPartida.setVisible(true);
+////        Game game = Game.obtenerInstancia();
+//        System.out.println(game.getPlayerTokens().get(0).getJugador().getNombre());
     }
 
 }

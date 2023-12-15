@@ -5,10 +5,12 @@
 package frames;
 
 import domino.Ficha;
+import domino.Jugador;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
+import presenter.PresenterPartida;
 
 /**
  *
@@ -16,17 +18,22 @@ import javax.swing.JOptionPane;
  */
 public class FrmPartida extends javax.swing.JFrame {
 
-    PanelFichas panelFichasExterno = new PanelFichas();
+    PanelFichas panelFichasExterno;
     PanelFichasJugador panelFichasJugador;
+    PresenterPartida presenterPartida;
 
     /**
      * Creates new form frmPartida
      */
-    public FrmPartida(List<Ficha> fichasJugador) {
+    public FrmPartida(List<Ficha> fichasJugador, Jugador jugador, PresenterPartida presenterPartida,
+            List<Ficha> fichasTablero) {
         initComponents();
-        panelFichasJugador = new PanelFichasJugador(fichasJugador);
+        panelFichasExterno = new PanelFichas(this, fichasTablero);
+        this.presenterPartida = presenterPartida;
+        panelFichasJugador = new PanelFichasJugador(fichasJugador, this);
         this.cargarTablero();
         this.cargarTableroJugador();
+        this.namePlayer1.setText(jugador.getNombre());
     }
 
     public FrmPartida() {
@@ -57,8 +64,22 @@ public class FrmPartida extends javax.swing.JFrame {
         gameBoardPanel.repaint();
     }
 
-    public void showError(int numError) {
-
+    public void validarFichas() {
+        Ficha fichajugador = panelFichasJugador.fichaSeleccionadaJugador;
+        Ficha fichaTablero = panelFichasExterno.fichaSeleccionadaTablero != null
+                ? panelFichasExterno.fichaSeleccionadaTablero.getFicha()
+                : null;
+        if (panelFichasExterno.fichas.isEmpty()) {
+            if (fichajugador.validarMula()) {
+                presenterPartida.moverFicha(fichajugador, null);
+                panelFichasJugador.fichaSeleccionadaJugador = null;
+            }
+        } else if (fichajugador != null && fichaTablero != null) {
+            presenterPartida.moverFicha(fichajugador, fichaTablero);
+            panelFichasJugador.fichaSeleccionadaJugador = null;
+            panelFichasExterno.fichaSeleccionadaTablero = null;
+        }
+        panelFichasExterno.repaint();
     }
 
     /**
@@ -76,7 +97,7 @@ public class FrmPartida extends javax.swing.JFrame {
         avatarP3 = new javax.swing.JPanel();
         avatarP1 = new javax.swing.JPanel();
         btnLeave = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        namePlayer1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnPullFromPond = new javax.swing.JButton();
@@ -92,6 +113,11 @@ public class FrmPartida extends javax.swing.JFrame {
 
         gameBoardPanel.setBackground(new java.awt.Color(255, 255, 255));
         gameBoardPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 4, true));
+        gameBoardPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gameBoardPanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout gameBoardPanelLayout = new javax.swing.GroupLayout(gameBoardPanel);
         gameBoardPanel.setLayout(gameBoardPanelLayout);
@@ -156,8 +182,8 @@ public class FrmPartida extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Player 1");
+        namePlayer1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        namePlayer1.setText("Player 1");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Player 2");
@@ -211,7 +237,7 @@ public class FrmPartida extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                    .addComponent(namePlayer1)
                     .addComponent(avatarP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(77, 77, 77)
                 .addComponent(gameBoardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +288,7 @@ public class FrmPartida extends javax.swing.JFrame {
                                         .addGap(104, 104, 104)
                                         .addComponent(avatarP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel1))))
+                                        .addComponent(namePlayer1))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
                                 .addComponent(btnLeave)
@@ -325,47 +351,12 @@ public class FrmPartida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void gameBoardPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameBoardPanelMouseClicked
+        // TODO add your handling code here:
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmPartida().setVisible(true);
-            }
-        });
-    }
+
+    }//GEN-LAST:event_gameBoardPanelMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel avatarP1;
@@ -376,11 +367,11 @@ public class FrmPartida extends javax.swing.JFrame {
     private javax.swing.JPanel gameBoardPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel namePlayer1;
     private javax.swing.JPanel panelFichas;
     // End of variables declaration//GEN-END:variables
 }

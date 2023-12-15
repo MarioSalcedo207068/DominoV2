@@ -13,6 +13,7 @@ public enum Estados {
     EN_ESPERA,
     ASIGNAR_FICHAS_JUGADORES, //AsignarFichasAJugador 
     AGREGAR_JUGADORES,
+    MOVER_FICHA,
     FICHA_VALIDA, //ValidarFichaTablero1
     FICHA_INVALIDA, //ValidarFichaTablero2
     PUNTUACIONES_CALCULADO, //CalcularScoreJugadores

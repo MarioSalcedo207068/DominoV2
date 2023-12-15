@@ -23,10 +23,12 @@ public class Pond {
     }
 
     public void calcularFichas() {
+        int h = 1;
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 if (i <= j) {
-                    fichas.add(new Ficha(i, j));
+                    fichas.add(new Ficha(h, i, j));
+                    h++;
                 }
             }
         }

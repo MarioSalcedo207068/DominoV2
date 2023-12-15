@@ -25,4 +25,16 @@ public class BoardToken {
         return fichasBoard.size();
     }
 
+    public void addFichaBoardToken(Ficha ficha) {
+        fichasBoard.add(ficha);
+    }
+
+    public void removeFichaBoardToken(Ficha ficha) {
+        fichasBoard.remove(ficha);
+    }
+
+    public List<Ficha> getFichasBoard() {
+        return fichasBoard;
+    }
+
 }

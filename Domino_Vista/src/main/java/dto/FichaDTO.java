@@ -21,6 +21,7 @@ public class FichaDTO {
     Orientacion orientacion;
 
     public FichaDTO() {
+        ficha = null;
     }
 
     public FichaDTO(Ficha ficha, int x, int y, Orientacion orientacion) {

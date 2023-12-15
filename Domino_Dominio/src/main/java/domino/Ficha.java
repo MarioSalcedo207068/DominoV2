@@ -11,13 +11,22 @@ package domino;
  */
 public class Ficha {
 
+    private Integer id;
     private int a;
     private int b;
+    private boolean caraA = false;
+    private boolean caraB = false;
 
     public Ficha() {
     }
 
     public Ficha(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public Ficha(Integer id, int a, int b) {
+        this.id = id;
         this.a = a;
         this.b = b;
     }
@@ -49,11 +58,29 @@ public class Ficha {
         return a + b;
     }
 
+    public boolean isCaraA() {
+        return caraA;
+    }
+
+    public void setCaraA(boolean caraA) {
+        this.caraA = caraA;
+    }
+
+    public boolean isCaraB() {
+        return caraB;
+    }
+
+    public void setCaraB(boolean caraB) {
+        this.caraB = caraB;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + this.a;
-        hash = 71 * hash + this.b;
+        int hash = 3;
+        hash = 67 * hash + this.a;
+        hash = 67 * hash + this.b;
+        hash = 67 * hash + (this.caraA ? 1 : 0);
+        hash = 67 * hash + (this.caraB ? 1 : 0);
         return hash;
     }
 
@@ -75,12 +102,18 @@ public class Ficha {
         if (this.b != other.b) {
             return false;
         }
+        if (this.caraA != other.caraA) {
+            return false;
+        }
+        if (this.caraB != other.caraB) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Domino{" + "a=" + a + ", b=" + b + '}';
+        return "Ficha{" + "id=" + id + ", a=" + a + ", b=" + b + ", caraA=" + caraA + ", caraB=" + caraB + '}';
     }
 
 }

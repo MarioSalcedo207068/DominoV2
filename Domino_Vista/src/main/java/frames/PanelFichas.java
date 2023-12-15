@@ -21,61 +21,72 @@ import javax.swing.JOptionPane;
  */
 public class PanelFichas extends javax.swing.JPanel {
 
+    private FrmPartida frmPartida;
     private FichaDraw fichaDraw;
-    private List<FichaDTO> fichas = new ArrayList<>();
-    private FichaDTO fichaSeleccionada;
+    private List<FichaDTO> fichasDTO = new ArrayList<>();
+    public FichaDTO fichaSeleccionadaTablero;
+    public List<Ficha> fichas = new ArrayList<>();
 
     /**
      * Creates new form NewJPanel
      */
-    public PanelFichas() {
+    public PanelFichas(FrmPartida frmPartida, List<Ficha> fichasTablero) {
         initComponents();
-        Ficha ficha = new Ficha(6, 5);
-        //ficha horizontal
-        int x = 200;
-        int y = 200;
-        fichas.add(new FichaDTO(ficha, x, y, Orientacion.HORIZONTAL));
-        //ficha vertical
-        x = 400;
-        y = 400;
-        Ficha ficha2 = new Ficha(1, 5);
-        fichas.add(new FichaDTO(ficha2, x, y, Orientacion.VERTICAL));
-        x = 500;
-        y = 400;
-        Ficha ficha3 = new Ficha(2, 3);
-        fichas.add(new FichaDTO(ficha3, x, y, Orientacion.VERTICAL));
-        x = 350;
-        y = 200;
-        Ficha ficha4 = new Ficha(2, 5);
-        fichas.add(new FichaDTO(ficha4, x, y, Orientacion.HORIZONTAL));
-        x = 550;
-        y = 200;
-        Ficha ficha5 = new Ficha(3, 5);
-        fichas.add(new FichaDTO(ficha5, x, y, Orientacion.HORIZONTAL));
+        fichaSeleccionadaTablero = null;
+        this.frmPartida = frmPartida;
+        this.fichas = fichasTablero;
+
+//        //ficha vertical
+//        x = 400;
+//        y = 400;
+//        Ficha ficha2 = fichasTablero.get(1);
+//        fichas.add(new FichaDTO(ficha2, x, y, Orientacion.VERTICAL));
+//        x = 500;
+//        y = 400;
+//        Ficha ficha3 = fichasTablero.get(2);
+//        fichas.add(new FichaDTO(ficha3, x, y, Orientacion.VERTICAL));
+//        x = 350;
+//        y = 200;
+//        Ficha ficha4 = fichasTablero.get(3);
+//        fichas.add(new FichaDTO(ficha4, x, y, Orientacion.HORIZONTAL));
+//        x = 550;
+//        y = 200;
+//        Ficha ficha5 = fichasTablero.get(4);
+//        fichas.add(new FichaDTO(ficha5, x, y, Orientacion.HORIZONTAL));
+    }
+
+    public void cargarFichas() {
+        if (!fichas.isEmpty()) {
+            Ficha ficha = fichas.get(0);
+//        //ficha horizontal
+            int x = 425;
+            int y = 250;
+            fichasDTO.add(new FichaDTO(ficha, x, y, Orientacion.VERTICAL));
+        }
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
+        cargarFichas();
         this.fichaDraw = new FichaDraw(50);
 
-        for (int i = 0; i < fichas.size(); i++) {
-            fichaDraw.dibujarFicha(fichas.get(i), g);
+        for (int i = 0; i < fichasDTO.size(); i++) {
+            fichaDraw.dibujarFicha(fichasDTO.get(i), g);
         }
 
-        if (fichaSeleccionada != null) {
-            int xFichaSeleccionada = fichaSeleccionada.getX();
-            int yFichaSeleccionada = fichaSeleccionada.getY();
+        if (fichaSeleccionadaTablero != null) {
+            int xFichaSeleccionada = fichaSeleccionadaTablero.getX();
+            int yFichaSeleccionada = fichaSeleccionadaTablero.getY();
             g.setColor(Color.RED);
             g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
                     fichaDraw.getDimensionCuadrado(), fichaDraw.getDimensionCuadrado(), 6, 6);
-            if (fichaSeleccionada.getOrientacion().equals(Orientacion.HORIZONTAL)) {
-                xFichaSeleccionada = fichaSeleccionada.getX() + 50;
+            if (fichaSeleccionadaTablero.getOrientacion().equals(Orientacion.HORIZONTAL)) {
+                xFichaSeleccionada = fichaSeleccionadaTablero.getX() + 50;
                 g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
                         fichaDraw.getDimensionCuadrado(), fichaDraw.getDimensionCuadrado(), 6, 6);
             } else {
-                yFichaSeleccionada = fichaSeleccionada.getY() + 50;
+                yFichaSeleccionada = fichaSeleccionadaTablero.getY() + 50;
                 g.drawRoundRect(xFichaSeleccionada, yFichaSeleccionada,
                         fichaDraw.getDimensionCuadrado(), fichaDraw.getDimensionCuadrado(), 6, 6);
             }
@@ -84,7 +95,7 @@ public class PanelFichas extends javax.swing.JPanel {
     }
 
     private void seleccionarFicha(int x, int y) {
-        for (FichaDTO ficha : fichas) {
+        for (FichaDTO ficha : fichasDTO) {
 //            int xFicha = 400 + fichas.indexOf(ficha) * 100;
 //            int yFicha = 400;
             int xFicha = ficha.getX();
@@ -93,7 +104,7 @@ public class PanelFichas extends javax.swing.JPanel {
             if (ficha.getOrientacion().equals(Orientacion.HORIZONTAL)) {
                 if (y >= yFicha && y <= yFicha + fichaDraw.getDimensionCuadrado()
                         && x >= xFicha && x <= xFicha + 2 * fichaDraw.getDimensionCuadrado()) {
-                    fichaSeleccionada = ficha;
+                    fichaSeleccionadaTablero = ficha;
                     repaint();
                     System.out.println("Ficha seleccionada: " + ficha);
                     break;
@@ -101,7 +112,7 @@ public class PanelFichas extends javax.swing.JPanel {
             } else if (ficha.getOrientacion().equals(Orientacion.VERTICAL)) {
                 if (x >= xFicha && x <= xFicha + fichaDraw.getDimensionCuadrado()
                         && y >= yFicha && y <= yFicha + 2 * fichaDraw.getDimensionCuadrado()) {
-                    fichaSeleccionada = ficha;
+                    fichaSeleccionadaTablero = ficha;
                     repaint();
                     System.out.println("Ficha seleccionada: " + ficha);
                     break;
@@ -141,6 +152,8 @@ public class PanelFichas extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         seleccionarFicha(evt.getX(), evt.getY());
+        frmPartida.validarFichas();
+
 // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
 
